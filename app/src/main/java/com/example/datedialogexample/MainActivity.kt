@@ -20,8 +20,16 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             //Fragment를 불러오는 내용이 들어가야겠지.. FragmentManager와 함께..
             //이거 뭐 괭장히 쉽게 불러오네..
             val datePicker = DatePickerFragment();
+            datePicker.setOnDateSetListener(DatePickerDialog.OnDateSetListener { datePicker, p1, p2, p3 ->
+                val text = findViewById<TextView>(R.id.textView).also { it.setText("TODO") }
+                val c = Calendar.getInstance().also { it.set(Calendar.YEAR, p1)}.also { it.set(Calendar.MONTH, p2)}.also { it.set(Calendar.DAY_OF_MONTH, p3) }
+                val currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.time)
+                val textView = findViewById<TextView>(R.id.textView).also { it.setText(currentDateString) }
+
+            })
             datePicker.show(supportFragmentManager, "Date Picker")
         } }
+
     }
 
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
